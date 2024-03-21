@@ -278,6 +278,7 @@ class Manifold {
   CrossSection Project() const;
   ///@}
 
+#if 0
   /** @name Convex hull
    */
   ///@{
@@ -285,6 +286,7 @@ class Manifold {
   static Manifold Hull(const std::vector<Manifold>& manifolds);
   static Manifold Hull(const std::vector<glm::vec3>& pts);
   ///@}
+#endif
 
   /** @name Testing hooks
    *  These are just for internal testing.

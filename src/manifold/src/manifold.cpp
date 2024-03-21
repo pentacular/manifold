@@ -16,7 +16,9 @@
 #include <map>
 #include <numeric>
 
+#if 0
 #include "QuickHull.hpp"
+#endif
 #include "boolean3.h"
 #include "csg_tree.h"
 #include "impl.h"
@@ -880,6 +882,7 @@ CrossSection Manifold::Project() const {
 
 ExecutionParams& ManifoldParams() { return manifoldParams; }
 
+#if 0
 /**
  * Compute the convex hull of a set of points. If the given points are fewer
  * than 4, or they are all coplanar, an empty Manifold will be returned.
@@ -926,4 +929,5 @@ Manifold Manifold::Hull() const { return Hull(GetMesh().vertPos); }
 Manifold Manifold::Hull(const std::vector<Manifold>& manifolds) {
   return Compose(manifolds).Hull();
 }
+#endif
 }  // namespace manifold
