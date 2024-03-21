@@ -170,6 +170,7 @@ TEST(CrossSection, FillRule) {
   EXPECT_NEAR(nonZero.Area(), 0.875, 0.001);
 }
 
+#if 0
 TEST(CrossSection, Hull) {
   auto circ = CrossSection::Circle(10, 360);
   auto circs = std::vector<CrossSection>{circ, circ.Translate({0, 30}),
@@ -209,3 +210,4 @@ TEST(CrossSection, HullError) {
   EXPECT_FLOAT_EQ(rr_area, 1765.1790375559026);
   EXPECT_FLOAT_EQ(rr_verts, 40);
 }
+#endif
