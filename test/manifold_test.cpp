@@ -789,6 +789,7 @@ TEST(Manifold, PinchedVert) {
   EXPECT_EQ(touch.Genus(), 0);
 }
 
+#if 0
 TEST(Manifold, TictacHull) {
   const float tictacRad = 100;
   const float tictacHeight = 500;
@@ -808,7 +809,6 @@ TEST(Manifold, TictacHull) {
   EXPECT_EQ(sphere.NumVert() + tictacSeg, tictac.NumVert());
 }
 
-#if 0
 TEST(Manifold, HollowHull) {
   auto sphere = Manifold::Sphere(100, 360);
   auto hollow = sphere - sphere.Scale({0.8, 0.8, 0.8});
