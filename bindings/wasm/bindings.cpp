@@ -115,8 +115,8 @@ EMSCRIPTEN_BINDINGS(whatever) {
       .function("simplify", &CrossSection::Simplify)
       .function("_Offset", &cross_js::Offset)
       .function("_ToPolygons", &CrossSection::ToPolygons)
-      .function("hull",
-                select_overload<CrossSection() const>(&CrossSection::Hull));
+      // .function("hull", select_overload<CrossSection() const>(&CrossSection::Hull))
+      ;
 
   // CrossSection Static Methods
   function("_Square", &CrossSection::Square);
@@ -126,9 +126,7 @@ EMSCRIPTEN_BINDINGS(whatever) {
   function("_crossSectionDifferenceN", &cross_js::DifferenceN);
   function("_crossSectionIntersectionN", &cross_js::IntersectionN);
   function("_crossSectionCollectVertices", &cross_js::CollectVertices);
-  function("_crossSectionHullPoints",
-           select_overload<CrossSection(std::vector<glm::vec2>)>(
-               &CrossSection::Hull));
+  // function("_crossSectionHullPoints", select_overload<CrossSection(std::vector<glm::vec2>)>( &CrossSection::Hull));
 
   class_<Manifold>("Manifold")
       .constructor(&man_js::FromMeshJS)
@@ -140,7 +138,7 @@ EMSCRIPTEN_BINDINGS(whatever) {
       .function("_TrimByPlane", &Manifold::TrimByPlane)
       .function("slice", &Manifold::Slice)
       .function("project", &Manifold::Project)
-      .function("hull", select_overload<Manifold() const>(&Manifold::Hull))
+      // .function("hull", select_overload<Manifold() const>(&Manifold::Hull))
       .function("_GetMeshJS", &js::GetMeshJS)
       .function("refine", &Manifold::Refine)
       .function("refineToLength", &Manifold::RefineToLength)
@@ -187,9 +185,8 @@ EMSCRIPTEN_BINDINGS(whatever) {
   function("_manifoldDifferenceN", &man_js::DifferenceN);
   function("_manifoldIntersectionN", &man_js::IntersectionN);
   function("_manifoldCollectVertices", &man_js::CollectVertices);
-  function("_manifoldHullPoints",
-           select_overload<Manifold(const std::vector<glm::vec3>&)>(
-               &Manifold::Hull));
+  // function("_manifoldHullPoints", select_overload<Manifold(const std::vector<glm::vec3>&)>( &Manifold::Hull))
+  ;
 
   // Quality Globals
   function("setMinCircularAngle", &Quality::SetMinCircularAngle);
