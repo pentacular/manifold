@@ -44,35 +44,17 @@
 
 namespace manifold {
 
-namespace {
-  using namespace manifold;
-
-  typedef glm::vec2 Vec2;
-  typedef glm::vec3 Vec3;
-  typedef glm::vec4 Vec4;
-  using Vec;
-  using VecView;
-  using SparseIndices;
-  typedef thrust::tuple tuple;
-  using thrust::get;
-  using thrust::make_pair;
-  typedef Manifold_impl Manifold_impl;
-  using Halfedge;
-
-#include "boolean3g.h"
-}
-
 /** @ingroup Private */
 class Boolean3 {
  public:
-  Boolean3(const Manifold_impl& inP, const Manifold_impl& inQ, OpType op);
+  Boolean3(const Manifold::Impl& inP, const Manifold::Impl& inQ, OpType op);
   Manifold::Impl Result(OpType op) const;
 
  private:
-  const Manifold_impl &inP_, &inQ_;
+  const Manifold::Impl &inP_, &inQ_;
   const float expandP_;
   SparseIndices p1q2_, p2q1_;
   Vec<int> x12_, x21_, w03_, w30_;
-  Vec<Vec3> v12_, v21_;
+  Vec<glm::vec3> v12_, v21_;
 };
 }  // namespace manifold
