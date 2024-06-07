@@ -38,6 +38,7 @@ export function setMinCircularAngle(angle: number): void;
 export function setMinCircularEdgeLength(length: number): void;
 export function setCircularSegments(segments: number): void;
 export function getCircularSegments(radius: number): number;
+export function resetToCircularDefaults(): void;
 ///@}
 
 export class CrossSection {
@@ -562,7 +563,20 @@ export class Manifold {
   /**
    * Smooths out the Manifold by filling in the halfedgeTangent vectors. The
    * geometry will remain unchanged until Refine or RefineToLength is called to
-   * interpolate the surface.
+   * interpolate the surface. This version uses the supplied vertex normal
+   * properties to define the tangent vectors.
+   *
+   * @param normalIdx The first property channel of the normals. NumProp must be
+   * at least normalIdx + 3. Any vertex where multiple normals exist and don't
+   * agree will result in a sharp edge.
+   */
+  smoothByNormals(normalIdx: number): Manifold;
+
+  /**
+   * Smooths out the Manifold by filling in the halfedgeTangent vectors. The
+   * geometry will remain unchanged until Refine or RefineToLength is called to
+   * interpolate the surface. This version uses the geometry of the triangles
+   * and pseudo-normals to define the tangent vectors.
    *
    * @param minSharpAngle degrees, default 60. Any edges with angles greater
    * than this value will remain sharp. The rest will be smoothed to G1
@@ -844,6 +858,13 @@ export class Manifold {
    * == 0.
    */
   getProperties(): Properties;
+
+
+  /*
+   * Returns the minimum gap between two manifolds. Returns a float between
+   * 0 and searchLength.
+   */
+  minGap(other: Manifold, searchLength: number): number;
 
   // Export
 

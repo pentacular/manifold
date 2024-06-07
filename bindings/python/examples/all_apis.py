@@ -70,6 +70,7 @@ def all_manifold():
     b = m.bounding_box()
     m = m.calculate_curvature(4, 5)
     m = m.calculate_normals(0)
+    m = m.smooth_by_normals(0)
     m = Manifold.compose([m, m.translate((5, 0, 0))])
     m = Manifold.cube((1, 1, 1))
     m = Manifold.cylinder(1, 1)
@@ -111,6 +112,9 @@ def all_manifold():
     m = m.trim_by_plane((0, 0, 1), 0)
     m = m.warp(lambda p: (p[0] + 1, p[1] / 2, p[2] * 2))
     m = m.warp_batch(lambda ps: ps * [1, 0.5, 2] + [1, 0, 0])
+    m = Manifold.cube()
+    m2 = Manifold.cube().translate([2, 0, 0])
+    d = m.min_gap(m2, 2)
 
 
 def run():

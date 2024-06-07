@@ -77,7 +77,10 @@ struct MeshGL {
   /// Optional: Indicates runs of triangles that correspond to a particular
   /// input mesh instance. The runs encompass all of triVerts and are sorted
   /// by runOriginalID. Run i begins at triVerts[runIndex[i]] and ends at
-  /// triVerts[runIndex[i+1]]. All runIndex values are divisible by 3.
+  /// triVerts[runIndex[i+1]]. All runIndex values are divisible by 3. Returned
+  /// runIndex will always be 1 longer than runOriginalID, but same length is
+  /// also allowed as input: triVerts.size() will be automatically appended in
+  /// this case.
   std::vector<uint32_t> runIndex;
   /// Optional: The OriginalID of the mesh this triangle run came from. This ID
   /// is ideal for reapplying materials to the output mesh. Multiple runs may
@@ -218,6 +221,7 @@ class Manifold {
   float Precision() const;
   int Genus() const;
   Properties GetProperties() const;
+  float MinGap(const Manifold& other, float searchLength) const;
   ///@}
 
   /** @name Mesh ID
@@ -245,6 +249,7 @@ class Manifold {
       int, std::function<void(float*, glm::vec3, const float*)>) const;
   Manifold CalculateCurvature(int gaussianIdx, int meanIdx) const;
   Manifold CalculateNormals(int normalIdx, float minSharpAngle = 60) const;
+  Manifold SmoothByNormals(int normalIdx) const;
   Manifold SmoothOut(float minSharpAngle = 60, float minSmoothness = 0) const;
   Manifold Refine(int) const;
   Manifold RefineToLength(float) const;
