@@ -46,7 +46,7 @@ if(DEFINED MANIFOLD_PAR)
 endif()
 
 # Primary user facing options
-option(MANIFOLD_CROSS_SECTION "Build CrossSection for 2D support" ON)
+option(MANIFOLD_CROSS_SECTION "Build CrossSection for 2D support" OFF)
 option(MANIFOLD_DEBUG "Enable debug tracing/timing" OFF)
 option(
   MANIFOLD_DOWNLOADS
@@ -56,8 +56,8 @@ option(
 option(MANIFOLD_EXCEPTIONS "Build manifold with exception enabled" ON)
 option(MANIFOLD_EXPORT "Build mesh export (via assimp) utility library" OFF)
 option(MANIFOLD_PAR "Enable Parallel backend" OFF)
-option(MANIFOLD_TEST "Enable testing suite" ON)
-option(BUILD_SHARED_LIBS "Build shared library" ON)
+option(MANIFOLD_TEST "Enable testing suite" OFF)
+option(BUILD_SHARED_LIBS "Build shared library" OFF)
 include(CMakeDependentOption)
 cmake_dependent_option(
   MANIFOLD_CBIND
@@ -70,9 +70,9 @@ option(MANIFOLD_PYBIND "Build python bindings" OFF)
 cmake_dependent_option(
   MANIFOLD_JSBIND
   "Build js binding"
-  ON
-  "EMSCRIPTEN"
   OFF
+  "EMSCRIPTEN"
+  ON
 )
 
 # Set some option values in the CMake cache
@@ -127,11 +127,11 @@ endif()
 if(EMSCRIPTEN)
   message("Building for Emscripten")
   if(MANIFOLD_EXCEPTIONS)
-    list(APPEND MANIFOLD_FLAGS -fexceptions)
+    list(APPEND MANIFOLD_FLAGS -fwasm-exceptions)
     string(
       APPEND
       CMAKE_EXE_LINKER_FLAGS
-      "-sALLOW_MEMORY_GROWTH=1 -fexceptions -sDISABLE_EXCEPTION_CATCHING=0 "
+      "-sALLOW_MEMORY_GROWTH=1 -fwasm-exceptions -sDISABLE_EXCEPTION_CATCHING=0 "
     )
   else()
     string(APPEND CMAKE_EXE_LINKER_FLAGS "-sALLOW_MEMORY_GROWTH=1 ")
